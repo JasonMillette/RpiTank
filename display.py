@@ -30,7 +30,7 @@ import Adafruit_GPIO.SPI as SPI
 
 WIDTH = 128
 HEIGHT = 128
-SPEED_HZ = 80000000
+SPEED_HZ = 8000000
 
 
 # Raspberry Pi configuration.
@@ -55,7 +55,7 @@ disp = TFT.ST7735(
         max_speed_hz=SPEED_HZ))
 
 # Initialize display.
-#disp.begin()
+disp.begin()
 
 # Load an image.
 image = Image.open('test.png')
