@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 #Jason Millette
-#11/26/18
+#11/23/18
 
 #uses weather api to get current weather data for Bangor ME
 #then create an 128x128 image for display
 
 import requests
-from PIL import Image
 import Image
 import ImageDraw
-import ImageFont
 import ST7735 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
@@ -29,7 +27,7 @@ temperature = 'Temperature: %2.2fF' %temperature
 pressure = 'Pressure: %dhpa' %pressure
 humidity = 'Humidity: %d' %humidity + '%'
 
-#Creating image for SPI display
+#Creating weather image for SPI display
 image = Image.new('RGB', (128,128), (0, 0, 255))    #RGB, size, color
 draw = ImageDraw.Draw(image)
 draw.text((20,9), 'Current weather', fill=(0, 0, 0))
@@ -40,13 +38,18 @@ draw.text((6, 54), temperature, fill=(0, 0, 0))
 draw.text((6, 63), pressure, fill=(0, 0, 0))
 draw.text((6, 72), humidity, fill=(0, 0, 0))
 
-#displaying image to spi device
+#displaying images to spi devices
 DC = 24
 RST = 25
 
+#Displaying weather data
 display1 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 0, max_speed_hz=8000000))
-display2 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 1, max_speed_hz=8000000))
-display1.begin()
-#display2.begin()
+display1._init()
 display1.display(image)
 
+
+#Display gives tank status information
+display2 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 1, max_speed_hz=8000000))
+display2._init()
+theLord = Image.open('tachanka.jpeg').resize((128, 128))
+display2.display(theLord)
