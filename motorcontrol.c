@@ -1,85 +1,77 @@
-#include <wiringPi.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <math.h>
 
 #include "gpio.h"
+#include "motorcontrol.h"
 
-int init_motor(int dir, int step);
-int turn_left(int dir);
-int turn_right(int dir);
-int run_motor(int step, int udelay);
-
-int main(int argc, char **argv)
+int init_motor(void)
 {
-	int speed = 15000 - 1500 * atoi(argv[2]);
+	gpio_enable(dir1);
+	gpio_enable(dir2);
+	gpio_enable(step1);
+	gpio_enable(step2);
+	gpio_set_output(dir1);
+	gpio_set_output(dir2);
+	gpio_set_output(step1);
+	gpio_set_output(step2);
 
-	if(speed > 15000 || speed < 1500)
-	{
-		printf("Error, Speed should be 0-9!\n");
-		return -1;	
-	}
+	return 0;
+}
 
-	if(init_motor(23,24) != 0)
+int run_motor(int step, int dx, int dy)
+{
+	int udelay;
+	dx = dx / 750;
+	dy = dy / 750;
+
+	if(dy == 0 && dx == 0)
 	{
-		printf("Error!\n");
-		return -1;		
+		return 0;
 	}
 	
-	if(strcmp(argv[1],"left") == 0)
+	if(step == step1)
 	{
-		if(turn_left(23) != 0)
+		if(dy >= 0)
 		{
-			printf("Error!\n");
-			return -1;	
+			gpio_set_output_high(dir1);
+		}
+		if(dy < 0)
+		{
+			gpio_set_output_low(dir1);
+		}
+		if(dx > 0)
+		{
+			udelay = 15000 - 10000 * sqrt(dx * dx + dy * dy) / sqrt(2);
+		}
+		if(dx < 0)
+		{
+			udelay = 15000 - 10000 * (dy * dy - dx * dx) / (dy * dy + dx * dx); 
 		}
 	}
-	else
+
+	if(step == step2)
 	{
-		if(turn_right(23) != 0)
+		if(dy > 0)
 		{
-			printf("Error!\n");
-			return -1;
+			gpio_set_output_low(dir2);
+		}
+		if(dy < 0)
+		{
+			gpio_set_output_high(dir2);
+		}
+		if(dx > 0)
+		{
+			udelay = 15000 - 10000 * (dy * dy - dx * dx) / (dy * dy + dx * dx);
+		}
+		if(dx < 0)
+		{
+			udelay = 15000 - 10000 * sqrt(dx * dx + dy * dy) / sqrt(2);
 		}
 	}
 
-	usleep(500000);
-	
-	while(1)
-	{
-		run_motor(24,speed);
-	}
-
-	return 0;
-}
-
-int init_motor(int dir, int step)
-{
-	gpio_enable(dir);
-	gpio_enable(step);
-	gpio_set_output(dir);
-	gpio_set_output(step);
-
-	return 0;
-}
-
-int turn_left(int dir)
-{
-	gpio_set_output_high(dir);
-
-	return 0;
-}
-
-int turn_right(int dir)
-{
-	gpio_set_output_low(dir);
-
-	return 0;
-}
-
-int run_motor(int step, int udelay)
-{
 	gpio_set_output_high(step);
 	gpio_set_output_low(step);
 	usleep(udelay);
