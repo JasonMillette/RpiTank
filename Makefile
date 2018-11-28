@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g -O2 -Wall
 
 
-all:	temp_cool tank meme motorcontrol gpio
+all:	temp_cool tank meme# motorcontrol gpio
 
 ###
 
@@ -18,23 +18,17 @@ tank:		tank.o
 tank.o:		tank.c
 	$(CC) $(CFLAGS) -c tank.c
 
-meme:		meme.o
-	$(CC) -o meme meme.c
-
-meme.o:		meme.c
-	$(CC) $(CFLAGS) -c meme.c
-
-motorcontrol:		motorcontrol.o
-	$(CC) -o motorcontrol motorcontrol.c 
-
-motorcontrol.o:		motorcontrol.c
-	$(CC) $(CFLAGS) -c motorcontrol.c 
-
-gpio:		gpio.o
-	$(CC) -o gpio gpio.c
-
-gpio.o:		gpio.c
-	$(CC) $(CFLAGS) -c gpio.c
+#motorcontrol:		motorcontrol.o
+#	$(CC) -o motorcontrol motorcontrol.c 
+#
+#motorcontrol.o:		motorcontrol.c
+#	$(CC) $(CFLAGS) -c motorcontrol.c 
+#
+#gpio:		gpio.o
+#	$(CC) -o gpio gpio.c
+#
+#gpio.o:		gpio.c
+#	$(CC) $(CFLAGS) -c gpio.c
 ###
 ###
 

@@ -18,13 +18,20 @@ int main() {
     system("./initDisplay.py");         //Initialize the SPI displays
     system("./IP.py");                  //Displays the IP address for webpage
 
-    int parentPID = getpid();
     int weatherPID = fork();
 
     if (weatherPID == 0) {
         while(1) {
             system("./weather.py");
+            printf("Weather\n");
             sleep(120);
         }
     }
+
+    else {
+        printf("meme\n");
+        system("./meme.py");
+    }
+
+    return 0;
 }
