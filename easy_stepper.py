@@ -7,8 +7,8 @@
 #Current Project: www.rowboboat.com
 #This code is a very basic example of using python to control a spark fun
 # easy driver.  The spark fun easy driver that I am using in this example
-# is connected to a 42HS4013A4 stepper motor and my raspberry pi.  Pin 23
-# is the direction control and pin 24 is the step control.  I am using
+# is connected to a 42HS4013A4 stepper motor and my raspberry pi.  Pin 27
+# is the direction control and pin 17 is the step control.  I am using
 # these components in the www.rowboboat.com project version 2.0 and I
 # hope someone finds this a useful and simple example.
 # This program expects two arguments: direction and steps
@@ -50,10 +50,10 @@ print("You told me to turn %s %s steps.") % (direction, steps)
 #------------------------------------------------------------------------
 #use the broadcom layout for the gpio
 gpio.setmode(gpio.BCM)
-#GPIO23 = Direction
-#GPIO24 = Step
-gpio.setup(23, gpio.OUT)
-gpio.setup(24, gpio.OUT)
+#GPIO27 = Direction
+#GPIO17 = Step
+gpio.setup(27, gpio.OUT)
+gpio.setup(17, gpio.OUT)
 #------------------------------------------------------------------------
 #------------------------------------------------------------------------
               
@@ -63,9 +63,9 @@ gpio.setup(24, gpio.OUT)
 #------------------------------------------------------------------------
 #set the output to true for left and false for right
 if direction == 'left':
-    gpio.output(23, True)
+    gpio.output(27, True)
 elif direction == 'right':
-    gpio.output(23, False)
+    gpio.output(27, False)
 #------------------------------------------------------------------------
 #------------------------------------------------------------------------
 
@@ -77,7 +77,7 @@ elif direction == 'right':
 StepCounter = 0
                               
 #waittime controls speed
-WaitTime = 0.0025
+WaitTime = 0.025
 #------------------------------------------------------------------------
 #------------------------------------------------------------------------
                                
@@ -89,8 +89,8 @@ WaitTime = 0.0025
 while StepCounter < steps:
                                      
     #turning the gpio on and off tells the easy driver to take one step
-    gpio.output(24, True)
-    gpio.output(24, False)
+    gpio.output(17, True)
+    gpio.output(17, False)
     StepCounter += 1
     print("Step %d") % (StepCounter)
                                                      

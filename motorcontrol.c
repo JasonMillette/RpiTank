@@ -32,7 +32,9 @@ int run_motor(int step, int dx, int dy)
 		return 0;
 	}
 	
-	if(step == step1)
+        int PID = fork();
+
+	if(PID == 0)
 	{
 		if(dy >= 0)
 		{
@@ -50,9 +52,13 @@ int run_motor(int step, int dx, int dy)
 		{
 			udelay = 15000 - 10000 * (dy * dy - dx * dx) / (dy * dy + dx * dx); 
 		}
+	        gpio_set_output_high(step1);
+	        gpio_set_output_low(step1);
+	        usleep(udelay);
+                exit(0);
 	}
 
-	if(step == step2)
+        else
 	{
 		if(dy > 0)
 		{
@@ -70,11 +76,12 @@ int run_motor(int step, int dx, int dy)
 		{
 			udelay = 15000 - 10000 * sqrt(dx * dx + dy * dy) / sqrt(2);
 		}
-	}
+	
 
-	gpio_set_output_high(step);
-	gpio_set_output_low(step);
-	usleep(udelay);
-
-	return 0;
+		gpio_set_output_high(step2);
+		gpio_set_output_low(step2);
+		usleep(udelay);
+	
+		return 0;
+        }
 }

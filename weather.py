@@ -12,7 +12,6 @@ import ST7735 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 
-
 #Getting weather data
 address = 'http://api.openweathermap.org/data/2.5/weather?appid=62ab759f6e4188d80f57fbbd854be303&q=Bangor'
 jsonData = requests.get(address).json()     # gets current weather information
@@ -44,12 +43,10 @@ RST = 25
 
 #Displaying weather data
 display1 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 0, max_speed_hz=8000000))
-display1._init()
 display1.display(image)
 
 
 #Display gives tank status information
-display2 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 1, max_speed_hz=8000000))
-display2._init()
-theLord = Image.open('tachanka.jpeg').resize((128, 128))
-display2.display(theLord)
+#display2 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 1, max_speed_hz=8000000))
+#theLord = Image.open('tachanka.jpeg').resize((128, 128))
+#display2.display(theLord)
