@@ -21,7 +21,7 @@ int init_motor(void)
 	return 0;
 }
 
-int run_motor(int step, int dx, int dy)
+int run_motor(int dx, int dy)
 {
 	int udelay;
 	dx = dx / 750;
