@@ -4,5 +4,5 @@
 #define dir2 26
 
 int init_motor(void);
-int run_motor(int step, int dx, int dy);
+int run_motor(int dx, int dy);
 
