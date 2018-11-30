@@ -21,67 +21,104 @@ int init_motor(void)
 	return 0;
 }
 
-int run_motor(int dx, int dy)
+int run_motor(double dx, double dy)
 {
-	int udelay;
-	dx = dx / 750;
-	dy = dy / 750;
+	double udelay = 0;
+	dx = dx / maxValue;
+	dy = dy / maxValue;
 
-	if(dy == 0 && dx == 0)
-	{
-		return 0;
-	}
-	
-        int PID = fork();
+	int PID = fork();
 
 	if(PID == 0)
 	{
 		if(dy >= 0)
 		{
-			gpio_set_output_high(dir1);
+			if(dx >= 0)
+			{
+				udelay = (sqrt(dx * dx + dy * dy)); 
+			}
+			else
+			{
+				udelay = ((dy * dy - dx * dx) / sqrt(dy * dy + dx * dx));
+			}
 		}
 		if(dy < 0)
 		{
+			if(dx < 0)
+			{
+				udelay = -(sqrt(dx * dx + dy * dy));
+			}
+			else
+			{
+				udelay = -((dy * dy - dx * dx) / sqrt(dy * dy + dx * dx));
+			}	
+		}
+		if(udelay < 0)
+		{
+			gpio_set_output_high(dir1);
+			udelay *= -1;
+		}
+		else{
 			gpio_set_output_low(dir1);
 		}
-		if(dx > 0)
+		if(udelay > 1)
 		{
-			udelay = 15000 - 10000 * sqrt(dx * dx + dy * dy) / sqrt(2);
+			udelay = 1;
 		}
-		if(dx < 0)
+		if(udelay != 0)
 		{
-			udelay = 15000 - 10000 * (dy * dy - dx * dx) / (dy * dy + dx * dx); 
+			udelay = maxDelay - coDelay * udelay;
+			gpio_set_output_high(step1);
+			gpio_set_output_low(step1);
+			usleep(udelay);
 		}
-	        gpio_set_output_high(step1);
-	        gpio_set_output_low(step1);
-	        usleep(udelay);
-                exit(0);
+		exit(0);
 	}
 
-        else
+	else
 	{
-		if(dy > 0)
+		if(dy >= 0)
 		{
-			gpio_set_output_low(dir2);
+			if(dx >= 0)
+			{
+				udelay = ((dy * dy - dx * dx) / sqrt(dy * dy + dx * dx));
+			}
+			else
+			{
+				udelay = (sqrt(dx * dx + dy * dy));
+			}
 		}
 		if(dy < 0)
 		{
+			if(dx < 0)
+			{
+				udelay = -((dy * dy - dx * dx) / sqrt(dy * dy + dx * dx));
+			}
+			else
+			{
+				udelay = -(sqrt(dx * dx + dy * dy));
+			}
+		}
+		if(udelay < 0)
+		{
+			gpio_set_output_low(dir2);
+			udelay *= -1;
+		}
+		else{
 			gpio_set_output_high(dir2);
 		}
-		if(dx > 0)
+		if(udelay > 1)
 		{
-			udelay = 15000 - 10000 * (dy * dy - dx * dx) / (dy * dy + dx * dx);
+			udelay = 1;
 		}
-		if(dx < 0)
+		if(udelay != 0)
 		{
-			udelay = 15000 - 10000 * sqrt(dx * dx + dy * dy) / sqrt(2);
+			udelay = maxDelay - coDelay * udelay;
+			gpio_set_output_high(step2);
+			gpio_set_output_low(step2);
+			usleep(udelay);
 		}
-	
+	}
 
-		gpio_set_output_high(step2);
-		gpio_set_output_low(step2);
-		usleep(udelay);
-	
-		return 0;
-        }
+	return 0;
 }
