@@ -73,7 +73,21 @@
                             request.open( "GET", "gpio.php?pic=3", true);
                             request.send(null);
                         }
-                    }, 1/30 * 1000);
+                    }, 1/420 * 1000);
+		</script>
+                <script>
+                    setInterval(function(){
+                        if (joystick.up()){
+                            var request = new XMLHttpRequest();
+                            var status = 
+					  (joystick.right()	? ' right'	: '')
+					+ (joystick.up()	? ' up'		: '')
+					+ (joystick.left()	? ' left'	: '')
+					+ (joystick.down()	? ' down' 	: '')	
+                            request.open( "GET", "display.php?status=" + status, true);
+                            request.send(null);
+                        }
+                    }, 1/420 * 1000);
 		</script>
 	</body>
 </html>
