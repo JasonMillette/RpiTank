@@ -7,22 +7,6 @@
 #include "gpio.h"
 #include "motorcontrol.h"
 
-int main(int argc, char **argv)
-{
-	// Initializes GPIO pins
-	init_motor();
-
-	// Converts input to doubles
-	double x = atof(argv[1]);
-	double y = atof(argv[2]);
-
-	// Need to constantly run motors
-	while(1)
-	{
-		run_motor(x,y);
-	}
-}
-
 int init_motor(void)
 {
 	// Enables all GPIO pins needed for motors
