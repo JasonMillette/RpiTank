@@ -12,16 +12,19 @@ firebase_admin.initialize_app(cred, {
 
 x = "0"
 y = "0"
-pid = os.fork()
 while 1:
+    pid = os.fork()
     if pid == 0:
+        os.system("./motorsteven "+x+" "+y)
+        exit()
+    else :
         loc = db.reference('users').get()
         x = str(loc["X"])
         y = str(loc["Y"])
-        exit()
-    else :   
-        os.system("./motorsteven "+x+" "+y)
-        print x
-        print y
+       # exit()
+    #else :   
+     #   os.system("./motorsteven "+x+" "+y)
+      #  print x
+       # print y
 
 

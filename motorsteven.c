@@ -13,12 +13,10 @@ int main(int argc, char **argv)
 	double x = atof(argv[1]);
 	double y = atof(argv[2]);
 	int i = 0;
-	printf("start running%lf\n",x);
 	for (i = 0; i < 60; i++)
 	{
 		run_motor(x,y);
 	}
-	printf("end running\n");
 }
 
 int init_motor(void)
