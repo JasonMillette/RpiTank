@@ -10,10 +10,10 @@
 int main(int argc, char **argv)
 {
 	init_motor();
-	int x = atoi(argv[1]);
-	double y = atoi(argv[2]);
+	double x = atof(argv[1]);
+	double y = atof(argv[2]);
 	int i = 0;
-	printf("start running%d\n",x);
+	printf("start running%lf\n",x);
 	for (i = 0; i < 60; i++)
 	{
 		run_motor(x,y);
