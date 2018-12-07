@@ -7,6 +7,17 @@
 #include "gpio.h"
 #include "motorcontrol.h"
 
+int main(int argc, char **argv)
+{
+	init_motor();
+	double x = atof(argv[1]);
+	double y = atof(argv[2]);
+	while(1)
+	{
+		run_motor(x,y);
+	}
+}
+
 int init_motor(void)
 {
 	gpio_enable(dir1);
@@ -24,6 +35,12 @@ int init_motor(void)
 int run_motor(double dx, double dy)
 {
 	double udelay = 0;
+	
+	if(dx == dy || dx == -dy)
+	{
+		return 0;
+	}
+
 	dx = dx / maxValue;
 	dy = dy / maxValue;
 
