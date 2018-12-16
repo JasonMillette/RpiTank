@@ -11,7 +11,7 @@ DC = 24
 RST = 25
 
 #Creates and initializes first display for weather forcast
-display1 = TFT.ST7735(DC, rst = RST, spi = SPI.SpiDev(0, 0, max_speed_hz = 420000000))
+display1 = TFT.ST7735(DC, rst = RST, spi = SPI.SpiDev(0, 0, max_speed_hz = 420000000))  #420MHz clock speed
 display1.begin()
 
 #Creates and initializes second display for IP and memes
