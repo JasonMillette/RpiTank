@@ -58,7 +58,7 @@ RST = 25
 #opening display
 display2 = TFT.ST7735(DC, rst = RST, spi = SPI.SpiDev(0, 1, max_speed_hz = 69000000))
 
-#opening memes
+#opening all the memes
 theLord = Image.open('memes/tachanka.jpeg').resize((128,128))
 boyfriend = Image.open('memes/boyfriend.png').resize((128,128))
 dispicable = Image.open('memes/dispicableMe.jpg').resize((128,128))
