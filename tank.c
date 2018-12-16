@@ -17,15 +17,15 @@ int main() {
 
     int weatherPID = fork();
 
-    if (weatherPID == 0) {
+    if (weatherPID == 0) {                              // Child
         while(1) {
-            system("/home/pi/RpiTank/./weather.py");
+            system("/home/pi/RpiTank/./weather.py");    //Displays  new weather data every two minutes
             sleep(120);
         }
     }
 
     else {
-        system("/home/pi/RpiTank/./meme.py");
+        system("/home/pi/RpiTank/./meme.py");           //Parent runs Memes on Demand Button(trademark pending)
     }
 
     return 0;
