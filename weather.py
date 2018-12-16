@@ -26,7 +26,7 @@ pressure = 'Pressure: %dhpa' %pressure
 humidity = 'Humidity: %d' %humidity + '%'
 
 #Creating weather image for SPI display
-image = Image.new('RGB', (128,128), (0, 0, 255))    #RGB, size, color
+image = Image.new('RGB', (128,128), (0, 0, 255))    #RGB, size, color => Blue was chosen for the background
 draw = ImageDraw.Draw(image)                        #creates image
 draw.text((20,9), 'Current weather', fill=(0, 0, 0))#(x,y), text, (R, G, B)
 draw.text((35, 18), 'Bangor, ME', fill=(0, 0, 0))    #Bangor was chosen as it is the closest availabel city 
