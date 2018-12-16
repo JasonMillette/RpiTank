@@ -15,7 +15,7 @@ int main() {
     system("/home/pi/RpiTank/./initDisplay.py");         //Initialize the SPI displays
     system("/home/pi/RpiTank/./IP.py");                  //Displays the IP address for webpage
 
-    int weatherPID = fork();
+    int weatherPID = fork();                             //Forks to run both programs simulaniously
 
     if (weatherPID == 0) {                              // Child
         while(1) {
