@@ -17,16 +17,11 @@ while 1:    #go for ever
         
     pid = os.fork()#fork
     if pid == 0: #run the motors for the current coordinates
-        os.system("./motorsteven "+x+" "+y)
+        os.system("./motorcontrol "+x+" "+y)
         exit()
     else :
         loc = db.reference('users').get()#get coordinates from the database
         x = str(loc["X"])
         y = str(loc["Y"])
-       # exit()
-    #else :   
-     #   os.system("./motorsteven "+x+" "+y)
-      #  print x
-       # print y
 
 

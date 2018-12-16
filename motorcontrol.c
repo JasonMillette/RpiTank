@@ -7,6 +7,19 @@
 #include "gpio.h"
 #include "motorcontrol.h"
 
+int main(int argc, char ** argv)//readdatabase.py call this function after it gets new values from the database
+{
+	init_motor();//start motor initlize first
+
+	double x = atof(argv[1]);//converts arguments to double
+	double y = atof(argv[2]);
+	int i;
+
+	for (i = 0; i < 100; i++)//do 100 steps then end 
+		run_motor(x,y);
+
+	return 0;
+}
 int init_motor(void)
 {
 	// Enables all GPIO pins needed for motors
