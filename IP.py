@@ -23,6 +23,6 @@ draw.text((35, 9), 'IP address', fill = (0, 0, 0))
 draw.text((25, 18), IP, fill = (0, 0, 0))
 
 #Displays image on second SPI device
-display2 = TFT.ST7735(24, rst = 25, spi = SPI.SpiDev(0, 1, max_speed_hz = 420000000))
+display2 = TFT.ST7735(24, rst = 25, spi = SPI.SpiDev(0, 1, max_speed_hz = 420000000)) #4420MHz clock speed
 #display2._init()
 display2.display(image)
