@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g -O2 -Wall
 
 
-all:	temp_cool tank # motorcontrol gpio
+all:	temp_cool tank motorcontrol gpio
 
 ###
 
@@ -18,17 +18,17 @@ tank:		tank.o
 tank.o:		tank.c
 	$(CC) $(CFLAGS) -c tank.c
 
-#motorcontrol:		motorcontrol.o
-#	$(CC) -lm -o motorcontrol motorcontrol.o gpio.o 
-#
-#motorcontrol.o:		motorcontrol.c
-#	$(CC) $(CFLAGS) -c motorcontrol.c 
-#
-#gpio:		gpio.o
-#	$(CC) -o gpio gpio.o
-#
-#gpio.o:		gpio.c
-#	$(CC) $(CFLAGS) -c gpio.c
+motorcontrol:		motorcontrol.o
+	$(CC) -lm -o motorcontrol motorcontrol.o gpio.o 
+
+motorcontrol.o:		motorcontrol.c
+	$(CC) $(CFLAGS) -c motorcontrol.c 
+
+gpio:		gpio.o
+	$(CC) -o gpio gpio.o
+
+gpio.o:		gpio.c
+	$(CC) $(CFLAGS) -c gpio.c
 ###
 ###
 
